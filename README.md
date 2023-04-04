@@ -1,0 +1,206 @@
+# How to publish to maven central with gradle
+
+### Versions used
+
+| Software | Version |
+|----------|---------|
+| Gradle   | 7.4.2   |
+| GnuPG    | 2.4.0   |
+
+### Step 1: Upload your code to a VCS
+
+Upload your code to a VCS like github.
+
+### Step 2: Claim your namespace in the maven central repository
+
+Your project will have a custom package path - example given "com.yourwebsite.yourapp".<br>
+This must be claimed in the maven central repository.
+
+###### Step 2.1: Create an account in sonatypes JIRA
+
+https://issues.sonatype.org/
+
+During this process, a member of Sonatype will create an account on the nexus for you.<br>
+The url to the nexus is e.g. "https://s01.oss.sonatype.org/".
+
+###### Step 2.2: Create an issue for your project hosting
+
+| Topic                       | Value                                                        |
+|-----------------------------|--------------------------------------------------------------|
+| Projekt                     | Community Support - Open Source Project Repository Hosting   |
+| Type                        | New Project                                                  |
+| Summary                     | Global/Central open source project packages hosting          |
+| Description                 | There is need for a library which simplifies abc development |
+| Group Id                    | The group id                                                 |
+| Project URL                 | e.g. https://github.com/yourname/yourapp                     |
+| SCM URL                     | e.g. https://github.com/yourname/yourapp.git                 |
+| Username(s)                 | Usernames (your username on github)                          |
+| Already synced to central   | No                                                           |
+
+###### Step 2.3: Wait until a human or a bot answers
+
+###### Step 2.4: Prove that this namespace is really yours
+
+A bot will guide you through this process. In short:
+
+If your namespace is a website, then you must create a DNS TXT record with your JIRA ticket id.<br>
+You can lookup this process in the internet - this is not too hard.
+
+As alternative you can set your namespace to something like this: "io.github.yourgithubusername".<br>
+Then you only need to create a temporary public repository with the ticket id as name.<br>
+
+You will be informed per email if everything is ok or if there is a problem.
+
+### Step 3: Create a PGP key pair
+
+You need this for signing your code. This is mandatory because if you do not do this, no one can verify, if this code is
+really your code.
+
+###### Step 3.1: Install GnuPG
+
+    https://www.gnupg.org/download/
+
+###### Step 3.2: Create your public key
+
+Go through the wizard and type in your information:
+
+    gpg --full-generate-key
+
+    Keytype:   RSA and RSA
+    Keylength: 2048 Bit
+    Validity:  Does not expire (be aware of this!)
+
+###### Step 3.3: Display all your created public keys
+
+This will display your created public key:
+
+    gpg --list-keys
+
+    pub   rsa2048 2023-03-27 [SC]
+          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX12345678 <-(The last 8 characters are your key id)
+    uid      [ ultimativ ] Firstname Lastname email@email.com
+    sub   rsa2048 2023-03-27 [E]
+
+###### Step 3.4: Create a private key out of your public key
+
+In this step you will be forced to enter a password.<br>
+DO NOT FORGET THIS PASSWORD. YOUR KEY WILL BE LOST FOREVER. BACKUP THIS PASSWORD.
+
+Create your private key:
+
+    gpg --export-secret-keys 12345678 > "C:\Users\<username>\.gnupg\secring.gpg"
+
+Check if your private key is created:
+
+    gpg --list-secret-keys
+
+### Step 4: Create a backup of your PGP key pair
+
+Do not ignore this step.<br>
+You can not recover your keys if they are messed up.<br>
+Your key will live in the internet forever.<br>
+If this step does not work, try as long as you need until this step works.<br>
+Do not go any further without creating a backup.<br>
+I recommend during both style of the backup - just for security.
+
+#### Step 4.1: Hardcopy style
+
+###### Step 4.1.1: Create the backup
+
+    cp ~/.gnupg/pubring.gpg /path/to/backups/
+    cp ~/.gnupg/secring.gpg /path/to/backups/
+    cp ~/.gnupg/trustdb.gpg /path/to/backups/
+
+###### Step 4.1.2: Import the backup
+
+    cp /path/to/backups/*.gpg ~/.gnupg/
+
+#### Step 4.2: Export/Import style
+
+###### Step 4.2.1: Create the backup
+
+Backup the public keys:
+
+    gpg --export --export-options backup --output publicKeysBackup.gpg
+
+Backup the private keys:
+
+    gpg --export-secret-keys --export-options backup --output privateKeysBackup.gpg
+
+Backup the trust relationship database:
+
+    gpg --export-ownertrust > trustBackup.gpg
+
+###### Step 4.2.2: Import the backup
+
+Import the public keys:
+
+    gpg --import publicKeysBackup.gpg
+
+Import the private keys:
+
+    gpg --import privateKeysBackup.gpg
+
+Import the trust relationship database:
+
+    gpg --import-ownertrust trustBackup.gpg
+
+    If this does not work, try this:
+    gpg --edit-key email@email.com
+    Enter: trust
+    Enter: 5
+    Enter: j/y
+
+Check for correct import:
+
+    gpg --list-secret-keys --keyid-format LONG
+
+### Step 5: Publish your public key on a public key server
+
+https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key <br>
+Publish your key:<br>
+
+    gpg --keyserver keyserver.ubuntu.com --send-keys XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX12345678
+
+Check if your key is published:
+
+    gpg --keyserver hkp://keyserver.ubuntu.com --search-key 'email@email.com'
+
+### Step 6: Prepare your global gradle.properties for publishing
+
+The global gradle.properties are located in "<userHome>/.gradle/gradle.properties".<br>
+If this file does not exist, then create it.
+
+The project intern gradle wrapper will look into this file too.<br>
+Here you can save your password from your key etc. This should not be published. ;)
+
+Please look in the directory "exampleFiles".
+
+    Please read the comments in this file.
+
+### Step 7: Prepare your build.gradle for publishing
+
+Please look in the directory "exampleFiles".
+
+    Please read the comments in this file.
+
+### Step 8: Publish to OSSRH nexus with gradle publish
+
+Execute the gradlew task "publish" to publish to the OSSRH nexus.<br>
+Now you need to wait around 5-30 minutes and after that, your uploaded library will appear in the repositories tab
+at https://s01.oss.sonatype.org/.
+
+### Step 9: Release your library
+
+After publishing to the nexus, your library is in the state "open".<br>
+You need to set the state to "close" with the "close" button.<br>
+Press the "refresh" button, because this seems to be buggy.<br>
+Now the "release" button is activated.<br>
+Press the "release" button for releasing your library.<br>
+Your library will by synced to the maven central repository within 30 minutes.
+
+Please read this articles (annoying, but necessary): <br>
+https://central.sonatype.org/publish/release/#locate-and-examine-your-staging-repository <br>
+https://central.sonatype.org/publish/publish-guide/#releasing-to-central
+
+### Step 10: Profit

@@ -1,0 +1,107 @@
+plugins {
+    id 'java'
+    id 'maven-publish' // is needed for publishing
+    id 'signing' // is needed for signing your files
+}
+
+group 'your.group.id' // this is your groupId
+version '1.2.3' // this is your version
+
+repositories {
+    mavenCentral()
+}
+
+ext { // this are variables
+    pomGroupId = group
+    pomVersion = version
+    pomArtifactId = "yourapp"
+    pomArtifactName = "YourApp"
+
+    jdkCompileVersion = 17
+}
+
+dependencies {
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.release = 17
+}
+
+test {
+    useJUnitPlatform()
+}
+
+sourceCompatibility = "${jdkCompileVersion}"
+targetCompatibility = "${jdkCompileVersion}"
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of("${jdkCompileVersion}"))
+    }
+}
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+/* publish to Maven Central (with maven publish plugin)
+* https://s01.oss.sonatype.org/#welcome
+* https://github.com/yourname/yourapp
+* */
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "${pomGroupId}"
+            artifactId = "${pomArtifactId}"
+            version = "${pomVersion}"
+            from components.java
+
+            pom {
+                name = "${pomArtifactName}"
+                description = "Cool description of your library"
+                url = "https://github.com/yourname/yourapp"
+                inceptionYear = '2023'
+                licenses {
+                    license {
+                        name = 'Apache License, Version 2.0' // the name of your license
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt' // url to your license
+                    }
+                }
+                developers { // put the developers here
+                    developer {
+                        id = 'yourname'
+                        name = 'Firstname Lastname'
+                        email = 'email@email.com'
+                    }
+                }
+                scm { // GIT data of your project
+                    url = "scm:git:https://github.com/yourname/yourapp.git"
+                    connection = 'scm:git:git:github.com/yourname/yourapp.git'
+                    developerConnection = 'scm:git:ssh://github.com:yourname/yourapp.git'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "OSSRH"
+            // url = "https://s01.oss.sonatype.org/content/repositories/snapshots/" // this is the repo for snapshots
+            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/" // this is deploys to the stating repo in nexus
+            credentials {
+                username = System.getenv("OSSRH_USERNAME") // echo %OSSRH_USERNAME% / Create a system environment variable with your sonatype login username
+                password = System.getenv("OSSRH_PASSWORD") // echo %OSSRH_PASSWORD% / Create a system environment variable with your sonatype login password
+            }
+        }
+    }
+}
+signing {
+    // By default the Signing Plugin uses a Java-based implementation of PGP for signing. This implementation cannot use the gpg-agent program for managing private keys, though. If you want to use the gpg-agent, you can change the signatory implementation used by the Signing Plugin:
+    useGpgCmd() // YOU NEED THIS. Without this method, gradle will not work with GnuPG keys.
+    sign publishing.publications.mavenJava
+}
+
