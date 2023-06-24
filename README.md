@@ -204,3 +204,13 @@ https://central.sonatype.org/publish/release/#locate-and-examine-your-staging-re
 https://central.sonatype.org/publish/publish-guide/#releasing-to-central
 
 ### Step 10: Profit
+
+### Error handling
+
+If any error occurs, than rerun the task "gradle publish" with "--stacktrace". It will show you hints why. 
+
+#### Caused by gpg2.exe is not found
+
+Check your gpg version with "gpg --version". If your version is >2 and your environment variable "PATH" contains the path to GnuPG (e.g. "C:\Program Files (x86)\gnupg\bin"), then check if there is a file called "gpg2.exe". If not, check if there is a file called "gpg.exe" and rename it to "gpg2.exe".
+
+IMPORTANT: From now on, you need to use "gpg2 --version" in your terminal/command prompt because there is no longer a "gpg.exe"!!!
