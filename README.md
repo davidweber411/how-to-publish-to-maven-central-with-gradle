@@ -168,7 +168,7 @@ Check if your key is published:
 
 ### Step 6: Prepare your global gradle.properties for publishing
 
-The global gradle.properties are located in "<userHome>/.gradle/gradle.properties".<br>
+The global gradle.properties are located in "userHome/.gradle/gradle.properties".<br>
 If this file does not exist, then create it.
 
 The project intern gradle wrapper will look into this file too.<br>
