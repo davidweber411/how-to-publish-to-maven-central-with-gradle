@@ -91,10 +91,13 @@ publishing {
         maven {
             name = "OSSRH"
             // url = "https://s01.oss.sonatype.org/content/repositories/snapshots/" // this is the repo for snapshots
-            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/" // this is deploys to the stating repo in nexus
+            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/" // deploys to the staging repo in nexus
             credentials {
-                username = System.getenv("OSSRH_USERNAME") // echo %OSSRH_USERNAME% / Create a system environment variable with your sonatype login username
-                password = System.getenv("OSSRH_PASSWORD") // echo %OSSRH_PASSWORD% / Create a system environment variable with your sonatype login password
+                // Create system environment variables with your token-username and token-password.
+                username = System.getenv("OSSRH_TOKEN_USERNAME")  // Test in cmd: echo %OSSRH_TOKEN_USERNAME%
+                password = System.getenv("OSSRH_TOKEN_PASSWORD") // Test in cmd: echo %OSSRH_TOKEN_PASSWORD%
+                // THIS DOES NOT WORK ANYMORE! YOU NEED A TOKEN: username = System.getenv("OSSRH_USERNAME") // echo %OSSRH_USERNAME%
+                // THIS DOES NOT WORK ANYMORE! YOU NEED A TOKEN: password = System.getenv("OSSRH_PASSWORD") // echo %OSSRH_PASSWORD%
             }
         }
     }

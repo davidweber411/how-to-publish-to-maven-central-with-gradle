@@ -25,17 +25,17 @@ The url to the nexus is e.g. "https://s01.oss.sonatype.org/".
 
 ###### Step 2.2: Create an issue for your project hosting
 
-| Topic                       | Value                                                        |
-|-----------------------------|--------------------------------------------------------------|
-| Projekt                     | Community Support - Open Source Project Repository Hosting   |
-| Type                        | New Project                                                  |
-| Summary                     | Global/Central open source project packages hosting          |
-| Description                 | There is need for a library which simplifies abc development |
-| Group Id                    | The group id                                                 |
-| Project URL                 | e.g. https://github.com/yourname/yourapp                     |
-| SCM URL                     | e.g. https://github.com/yourname/yourapp.git                 |
-| Username(s)                 | Usernames (your username on github)                          |
-| Already synced to central   | No                                                           |
+| Topic                     | Value                                                        |
+|---------------------------|--------------------------------------------------------------|
+| Projekt                   | Community Support - Open Source Project Repository Hosting   |
+| Type                      | New Project                                                  |
+| Summary                   | Global/Central open source project packages hosting          |
+| Description               | There is need for a library which simplifies abc development |
+| Group Id                  | The group id                                                 |
+| Project URL               | e.g. https://github.com/yourname/yourapp                     |
+| SCM URL                   | e.g. https://github.com/yourname/yourapp.git                 |
+| Username(s)               | Usernames (your username on github)                          |
+| Already synced to central | No                                                           |
 
 ###### Step 2.3: Wait until a human or a bot answers
 
@@ -180,6 +180,20 @@ Please look in the directory "exampleFiles".
 
 ### Step 7: Prepare your build.gradle for publishing
 
+#### Step 7.1: Generate a token
+
+You must generate a token because the old way (using the standard username and password) does not work anymore.
+
+1. Navigate to https://s01.oss.sonatype.org/.
+2. Click on your "golden" user name and navigate to "Profile".
+3. Select "User Token" in the dropdown.
+4. Click on "Access User Token", get the token-username and the token-password and save them in an environment variable.
+5. Restart your IDE after doing that - DON'T ASK, DO IT.
+
+![img.png](img.png)
+
+#### Step 7.2: Example file
+
 Please look in the directory "exampleFiles".
 
     Please read the comments in this file.
@@ -207,10 +221,28 @@ https://central.sonatype.org/publish/publish-guide/#releasing-to-central
 
 ### Error handling
 
-If any error occurs, than rerun the task "gradle publish" with "--stacktrace". It will show you hints why. 
+If any error occurs, than rerun the task <code>gradle publish</code> with <code>--stacktrace</code>. It will show you
+hints why.
 
 #### Caused by gpg2.exe is not found
 
-Check your gpg version with "gpg --version". If your version is >2 and your environment variable "PATH" contains the path to GnuPG (e.g. "C:\Program Files (x86)\gnupg\bin"), then check if there is a file called "gpg2.exe". If not, check if there is a file called "gpg.exe" and rename it to "gpg2.exe".
+Check your gpg version with <code>gpg --version</code>. If your version is >2 and your environment variable <code>
+PATH</code> contains the path to GnuPG (e.g. <code>C:\Program Files (x86)\gnupg\bin</code>), then check if there is a
+file called <code>gpg2.exe</code>. If not, check if there is a file called <code>gpg.exe</code> and rename it to <code>
+gpg2.exe</code>.
 
-IMPORTANT: From now on, you need to use "gpg2 --version" in your terminal/command prompt because there is no longer a "gpg.exe"!!!
+IMPORTANT: From now on, you need to use <code>gpg2</code> with parameter like <code>--version</code> in your
+terminal/command prompt because there is no longer a <code>gpg.exe</code>!!!
+
+#### 401 Content access is protected by token
+
+This error message occurs if you try to publish to OSSRH via your username and password. This does not work anymore.
+You must create and use a user token.
+
+1. Navigate to https://s01.oss.sonatype.org/.
+2. Click on your "golden" user name and navigate to "Profile".
+3. Select "User Token" in the dropdown.
+4. Click on "Access User Token", get the token-username and the token-password and save them in an environment variable.
+5. Restart your IDE after doing that - DON'T ASK, DO IT.
+
+Original documentation: https://central.sonatype.org/publish/generate-token/
