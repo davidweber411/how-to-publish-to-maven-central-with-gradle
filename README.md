@@ -246,3 +246,9 @@ You must create and use a user token.
 5. Restart your IDE after doing that - DON'T ASK, DO IT.
 
 Original documentation: https://central.sonatype.org/publish/generate-token/
+
+#### The dependency is not available on maven central repository
+
+Don't get fooled by the indexed search on https://mvnrepository.com/. This process can take around 2 days (personal
+experience). If you want to test it, create a separate project, include the dependency in it, and try to load it. Or
+wait until you get grey hair. 
