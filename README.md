@@ -107,45 +107,41 @@ If this step does not work, try as long as you need until this step works.<br>
 Do not go any further without creating a backup.<br>
 I recommend during both style of the backup - just for security.
 
-#### Step 4.1: Hardcopy style
+<b><i>4.1: Hardcopy style</i></b><br>
 
-###### Step 4.1.1: Create the backup
+Create the backup like this:
 
     cp ~/.gnupg/pubring.gpg /path/to/backups/
     cp ~/.gnupg/secring.gpg /path/to/backups/
     cp ~/.gnupg/trustdb.gpg /path/to/backups/
 
-###### Step 4.1.2: Import the backup
+Import the backup like this:
 
     cp /path/to/backups/*.gpg ~/.gnupg/
 
-#### Step 4.2: Export/Import style
+<b><i>4.2: Export/Import style</i></b><br>
 
-###### Step 4.2.1: Create the backup
-
-Backup the public keys:
+Backup the public keys like this:
 
     gpg --export --export-options backup --output publicKeysBackup.gpg
 
-Backup the private keys:
+Backup the private keys like this:
 
     gpg --export-secret-keys --export-options backup --output privateKeysBackup.gpg
 
-Backup the trust relationship database:
+Backup the trust relationship database like this:
 
     gpg --export-ownertrust > trustBackup.gpg
 
-###### Step 4.2.2: Import the backup
-
-Import the public keys:
+Import the public keys backup like this:
 
     gpg --import publicKeysBackup.gpg
 
-Import the private keys:
+Import the private keys backup like this:
 
     gpg --import privateKeysBackup.gpg
 
-Import the trust relationship database:
+Import the trust relationship database backup like this:
 
     gpg --import-ownertrust trustBackup.gpg
 
