@@ -64,7 +64,7 @@ really your code.
 
     https://www.gnupg.org/download/
 
-###### Step 3.2: Create your public key
+<b><i>3.2: Create your public key</i></b><br>
 
 Go through the wizard and type in your information:
 
@@ -74,7 +74,7 @@ Go through the wizard and type in your information:
     Keylength: 2048 Bit
     Validity:  Does not expire (be aware of this!)
 
-###### Step 3.3: Display all your created public keys
+<b><i>3.3: Display all your created public keys</i></b><br>
 
 This will display your created public key:
 
@@ -85,7 +85,7 @@ This will display your created public key:
     uid      [ ultimativ ] Firstname Lastname email@email.com
     sub   rsa2048 2023-03-27 [E]
 
-###### Step 3.4: Create a private key out of your public key
+<b><i>3.4: Create a private key out of your public key</i></b><br>
 
 In this step you will be forced to enter a password.<br>
 DO NOT FORGET THIS PASSWORD. YOUR KEY WILL BE LOST FOREVER. BACKUP THIS PASSWORD.
@@ -98,7 +98,7 @@ Check if your private key is created:
 
     gpg --list-secret-keys
 
-### Step 4: Create a backup of your PGP key pair
+##### Step 4: Create a backup of your PGP key pair
 
 Do not ignore this step.<br>
 You can not recover your keys if they are messed up.<br>
