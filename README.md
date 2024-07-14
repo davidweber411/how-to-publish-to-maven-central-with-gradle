@@ -261,7 +261,7 @@ wait until you get grey hair.
 You need to revoke the key from the keyserver by publishing a revocation certificate to it. This informs others that the
 key shouldn't be trusted anymore.
 
-##### Get the ID of your key first:
+##### Step 1: Get the ID of your key first:
 
 For a public key use <code>gpg --list-keys</code>, for a private key use <code>gpg --list-secret-keys</code>.
 In both ways the ID of the keys are the last 8 characters.
@@ -273,7 +273,7 @@ In both ways the ID of the keys are the last 8 characters.
     uid      [ ultimativ ] Firstname Lastname email@email.com
     sub   rsa2048 2023-03-27 [E]
 
-##### Next steps:
+##### Step 2: Mark the key as unsecure:
 
 1. Generate a revocation certificate:<br><code>gpg --output revoke.asc --gen-revoke 12345678</code><br>You must enter
    the password of your key during this process.
