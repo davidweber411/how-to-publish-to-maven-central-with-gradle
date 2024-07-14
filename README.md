@@ -155,16 +155,17 @@ Check for correct import:
 
     gpg --list-secret-keys --keyid-format LONG
 
-### Step 5: Publish your public key on a public key server
+##### Step 5: Publish your public key on a public key server
 
-https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key <br>
-Publish your key:<br>
+Publish your key:
 
     gpg --keyserver keyserver.ubuntu.com --send-keys XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX12345678
 
 Check if your key is published:
 
     gpg --keyserver hkp://keyserver.ubuntu.com --search-key 'email@email.com'
+
+Additional notes and informations: https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key
 
 ### Step 6: Prepare your global gradle.properties for publishing
 
