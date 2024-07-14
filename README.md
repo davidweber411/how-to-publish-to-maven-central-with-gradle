@@ -251,4 +251,31 @@ Original documentation: https://central.sonatype.org/publish/generate-token/
 
 Don't get fooled by the indexed search on https://mvnrepository.com/. This process can take around 2 days (personal
 experience). If you want to test it, create a separate project, include the dependency in it, and try to load it. Or
-wait until you get grey hair. 
+wait until you get grey hair.
+
+### What to do if my key was hacked
+
+You need to revoke the key from the keyserver by publishing a revocation certificate to it. This informs others that the
+key shouldn't be trusted anymore.
+
+##### Get the ID of your key first:
+
+For a public key use <code>gpg --list-keys</code>, for a private key use <code>gpg --list-secret-keys</code>.
+In both ways the ID of the keys are the last 8 characters.
+
+    gpg --list-keys
+
+    pub   rsa2048 2023-03-27 [SC]
+          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX12345678 <-(The last 8 characters are your key id)
+    uid      [ ultimativ ] Firstname Lastname email@email.com
+    sub   rsa2048 2023-03-27 [E]
+
+##### Next steps:
+
+1. Generate a revocation certificate:<br><code>gpg --output revoke.asc --gen-revoke 12345678</code><br>You must enter
+   the password of your key during this process.
+2. Revoke the key:<br><code>gpg --import revoke.asc</code><br><code>gpg --send-keys 12345678</code>
+3. Export the public key:<br><code>gpg --armor --export 12345678 > public-key.asc</code>
+4. Send the key to the keyserver:<br><code>gpg --send-keys 12345678</code>
+5. Done!
+
