@@ -199,26 +199,26 @@ Please look in the directory <code>exampleFiles</code>.
 
     Please read the comments in the example file of this repository.
 
-### Step 8: Publish to OSSRH nexus with gradle publish
+##### Step 8: Publish to OSSRH nexus with gradle publish
 
-Execute the gradlew task "publish" to publish to the OSSRH nexus.<br>
+Execute the gradlew task <code>publish</code> to publish to the OSSRH nexus.<br>
 Now you need to wait around 5-30 minutes and after that, your uploaded library will appear in the repositories tab
 at https://s01.oss.sonatype.org/.
 
-### Step 9: Release your library
+##### Step 9: Release your library
 
-After publishing to the nexus, your library is in the state "open".<br>
-You need to set the state to "close" with the "close" button.<br>
-Press the "refresh" button, because this seems to be buggy.<br>
-Now the "release" button is activated.<br>
-Press the "release" button for releasing your library.<br>
+After publishing to the nexus, your library is in the state <code>open</code>.<br>
+You need to set the state to <code>close</code> with the <code>close button</code>.<br>
+Press the <code>refresh button</code>, because this seems to be buggy.<br>
+Now the <code>release button</code> is activated.<br>
+Press the <code>release button</code> for releasing your library.<br>
 Your library will by synced to the maven central repository within 30 minutes.
 
 Please read this articles (annoying, but necessary): <br>
 https://central.sonatype.org/publish/release/#locate-and-examine-your-staging-repository <br>
 https://central.sonatype.org/publish/publish-guide/#releasing-to-central
 
-### Step 10: Profit
+##### Step 10: Profit
 
 ### Error handling
 
