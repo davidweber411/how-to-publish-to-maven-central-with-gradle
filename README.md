@@ -9,23 +9,25 @@ This document should guide you through the process of publishing a gradle projec
 | Gradle   | 7.4.2   |
 | GnuPG    | 2.4.0   |
 
-### Step 1: Upload your code to a VCS
+### Guide
+
+##### Step 1: Upload your code to a VCS
 
 Upload your code to a VCS like github.
 
-### Step 2: Claim your namespace in the maven central repository
+##### Step 2: Claim your namespace in the maven central repository
 
-Your project will have a custom package path - example given "com.yourwebsite.yourapp".<br>
+Your project will have a custom package path aka group id - e. g. <code>com.yourwebsite.yourapp</code>.<br>
 This must be claimed in the maven central repository.
 
-###### Step 2.1: Create an account in sonatypes JIRA
+<b><i>2.1: Create an account in sonatypes JIRA</i></b><br>
 
-https://issues.sonatype.org/
+Please follow this link: https://issues.sonatype.org/
 
-During this process, a member of Sonatype will create an account on the nexus for you.<br>
-The url to the nexus is e.g. "https://s01.oss.sonatype.org/".
+During this process, a member of Sonatype will create an account on the nexus for you. The url to the nexus is
+e.g. https://s01.oss.sonatype.org/.
 
-###### Step 2.2: Create an issue for your project hosting
+<b><i>2.2: Create an issue for your project hosting</i></b><br>
 
 | Topic                     | Value                                                        |
 |---------------------------|--------------------------------------------------------------|
@@ -39,9 +41,9 @@ The url to the nexus is e.g. "https://s01.oss.sonatype.org/".
 | Username(s)               | Usernames (your username on github)                          |
 | Already synced to central | No                                                           |
 
-###### Step 2.3: Wait until a human or a bot answers
+<b><i>2.3: Wait until a human or a bot answers</i></b><br>
 
-###### Step 2.4: Prove that this namespace is really yours
+<b><i>2.4: Prove that this namespace is really yours</i></b><br>
 
 A bot will guide you through this process. In short:
 
@@ -53,12 +55,12 @@ Then you only need to create a temporary public repository with the ticket id as
 
 You will be informed per email if everything is ok or if there is a problem.
 
-### Step 3: Create a PGP key pair
+##### Step 3: Create a PGP key pair
 
 You need this for signing your code. This is mandatory because if you do not do this, no one can verify, if this code is
 really your code.
 
-###### Step 3.1: Install GnuPG
+<b><i>3.1: Install GnuPG</i></b><br>
 
     https://www.gnupg.org/download/
 
