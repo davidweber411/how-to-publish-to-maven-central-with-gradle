@@ -167,19 +167,19 @@ Check if your key is published:
 
 Additional notes and informations: https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key
 
-### Step 6: Prepare your global gradle.properties for publishing
+##### Step 6: Prepare your global gradle.properties for publishing
 
-The global gradle.properties are located in "userHome/.gradle/gradle.properties".<br>
-If this file does not exist, then create it.
+The global gradle.properties are located in <code>userHome/.gradle/gradle.properties</code>. If this file does not
+exist, then create it.
 
 The project intern gradle wrapper will look into this file too.<br>
 Here you can save your password from your key etc. This should not be published. ;)
 
 Please look in the directory "exampleFiles".
 
-    Please read the comments in this file.
+    Please read the comments in the example file of this repository.
 
-### Step 7: Prepare your build.gradle for publishing
+##### Step 7: Prepare your build.gradle for publishing
 
 #### Step 7.1: Generate a token
 
@@ -197,7 +197,7 @@ You must generate a token because the old way (using the standard username and p
 
 Please look in the directory "exampleFiles".
 
-    Please read the comments in this file.
+    Please read the comments in the example file of this repository.
 
 ### Step 8: Publish to OSSRH nexus with gradle publish
 
