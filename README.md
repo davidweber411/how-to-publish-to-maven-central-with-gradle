@@ -1,4 +1,6 @@
-# How to publish to maven central with gradle
+### Description
+
+This document should guide you through the process of publishing a gradle project to the maven central repository.
 
 ### Versions used
 
