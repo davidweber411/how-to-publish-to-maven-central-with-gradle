@@ -2,6 +2,10 @@
 
 This document should guide you through the process of publishing a gradle project to the maven central repository.
 
+Official Github
+repository: <a href="https://github.com/davidweber411/how-to-publish-to-maven-central-with-gradle" target="_blank" rel="noreferrer noopener">
+davidweber411/how-to-publish-to-maven-central-with-gradle</a>
+
 ### Versions used
 
 | Software | Version |
