@@ -281,4 +281,3 @@ In both ways the ID of the keys are the last 8 characters.
 3. Export the public key:<br><code>gpg --armor --export 12345678 > public-key.asc</code>
 4. Send the key to the keyserver:<br><code>gpg --send-keys 12345678</code>
 5. Done!
-
