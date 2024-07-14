@@ -175,27 +175,27 @@ exist, then create it.
 The project intern gradle wrapper will look into this file too.<br>
 Here you can save your password from your key etc. This should not be published. ;)
 
-Please look in the directory "exampleFiles".
+Please look in the directory <code>exampleFiles</code>.
 
     Please read the comments in the example file of this repository.
 
 ##### Step 7: Prepare your build.gradle for publishing
 
-#### Step 7.1: Generate a token
+<b><i>7.1: Generate a security token</i></b><br>
 
-You must generate a token because the old way (using the standard username and password) does not work anymore.
+You must generate a security token because the old way (using the standard username and password) does not work anymore.
 
 1. Navigate to https://s01.oss.sonatype.org/.
 2. Click on your "golden" user name and navigate to "Profile".
 3. Select "User Token" in the dropdown.
 4. Click on "Access User Token", get the token-username and the token-password and save them in an environment variable.
-5. Restart your IDE after doing that - DON'T ASK, DO IT.
+5. If your IDE was open during this process, restart it - TRUST ME, DO IT.
 
 ![img.png](img.png)
 
-#### Step 7.2: Example file
+<b><i>7.2: Example file</i></b><br>
 
-Please look in the directory "exampleFiles".
+Please look in the directory <code>exampleFiles</code>.
 
     Please read the comments in the example file of this repository.
 
