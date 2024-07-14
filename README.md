@@ -222,20 +222,22 @@ https://central.sonatype.org/publish/publish-guide/#releasing-to-central
 
 ### Error handling
 
-If any error occurs, than rerun the task <code>gradle publish</code> with <code>--stacktrace</code>. It will show you
-hints why.
+##### General todo
 
-#### Caused by gpg2.exe is not found
+If any error occurs, than restart at first your IDE. After that, rerun the gradle task <code>gradle publish</code>
+with <code>--stacktrace</code>. It will show you hints why.
 
-Check your gpg version with <code>gpg --version</code>. If your version is >2 and your environment variable <code>
-PATH</code> contains the path to GnuPG (e.g. <code>C:\Program Files (x86)\gnupg\bin</code>), then check if there is a
-file called <code>gpg2.exe</code>. If not, check if there is a file called <code>gpg.exe</code> and rename it to <code>
-gpg2.exe</code>.
+##### Caused by gpg2.exe is not found
+
+Check your gpg version with <code>gpg --version</code>. If your version is <code>>2</code> and your environment
+variable <code>PATH</code> contains the path to GnuPG (e.g. <code>C:\Program Files (x86)\gnupg\bin</code>), then check
+if there is a file called <code>gpg2.exe</code>. If not, check if there is a file called <code>gpg.exe</code> and rename
+it to <code>gpg2.exe</code>.
 
 IMPORTANT: From now on, you need to use <code>gpg2</code> with parameter like <code>--version</code> in your
 terminal/command prompt because there is no longer a <code>gpg.exe</code>!!!
 
-#### 401 Content access is protected by token
+##### 401 Content access is protected by token
 
 This error message occurs if you try to publish to OSSRH via your username and password. This does not work anymore.
 You must create and use a user token.
@@ -248,7 +250,7 @@ You must create and use a user token.
 
 Original documentation: https://central.sonatype.org/publish/generate-token/
 
-#### The dependency is not available on maven central repository
+##### The dependency is not available on maven central repository
 
 Don't get fooled by the indexed search on https://mvnrepository.com/. This process can take around 2 days (personal
 experience). If you want to test it, create a separate project, include the dependency in it, and try to load it. Or
