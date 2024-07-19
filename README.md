@@ -15,23 +15,23 @@ davidweber411/how-to-publish-to-maven-central-with-gradle</a>
 
 ### Guide
 
-##### Step 1: Upload your code to a VCS
+#### Step 1: Upload your code to a VCS
 
 Upload your code to a VCS like github.
 
-##### Step 2: Claim your namespace in the maven central repository
+#### Step 2: Claim your namespace in the maven central repository
 
 Your project will have a custom package path aka group id - e. g. <code>com.yourwebsite.yourapp</code>.<br>
 This must be claimed in the maven central repository.
 
-<b><i>2.1: Create an account in sonatypes JIRA</i></b><br>
+##### 2.1: Create an account in sonatypes JIRA
 
 Please follow this link: https://issues.sonatype.org/
 
 During this process, a member of Sonatype will create an account on the nexus for you. The url to the nexus is
 e.g. https://s01.oss.sonatype.org/.
 
-<b><i>2.2: Create an issue for your project hosting</i></b><br>
+##### 2.2: Create an issue for your project hosting
 
 | Topic                     | Value                                                        |
 |---------------------------|--------------------------------------------------------------|
@@ -45,9 +45,11 @@ e.g. https://s01.oss.sonatype.org/.
 | Username(s)               | Usernames (your username on github)                          |
 | Already synced to central | No                                                           |
 
-<b><i>2.3: Wait until a human or a bot answers</i></b><br>
+##### 2.3: Wait until a human or a bot answers
 
-<b><i>2.4: Prove that this namespace is really yours</i></b><br>
+Please wait ...
+
+##### 2.4: Prove that this namespace is really yours
 
 A bot will guide you through this process. In short:
 
@@ -59,16 +61,16 @@ Then you only need to create a temporary public repository with the ticket id as
 
 You will be informed per email if everything is ok or if there is a problem.
 
-##### Step 3: Create a PGP key pair
+#### Step 3: Create a PGP key pair
 
 You need this for signing your code. This is mandatory because if you do not do this, no one can verify, if this code is
 really your code.
 
-<b><i>3.1: Install GnuPG</i></b><br>
+##### 3.1: Install GnuPG
 
     https://www.gnupg.org/download/
 
-<b><i>3.2: Create your public key</i></b><br>
+##### 3.2: Create your public key
 
 Go through the wizard and type in your information:
 
@@ -78,7 +80,7 @@ Go through the wizard and type in your information:
     Keylength: 2048 Bit
     Validity:  Does not expire (be aware of this!)
 
-<b><i>3.3: Display all your created public keys</i></b><br>
+##### 3.3: Display all your created public keys
 
 This will display your created public key:
 
@@ -89,7 +91,7 @@ This will display your created public key:
     uid      [ ultimativ ] Firstname Lastname email@email.com
     sub   rsa2048 2023-03-27 [E]
 
-<b><i>3.4: Create a private key out of your public key</i></b><br>
+##### 3.4: Create a private key out of your public key
 
 In this step you will be forced to enter a password.<br>
 DO NOT FORGET THIS PASSWORD. YOUR KEY WILL BE LOST FOREVER. BACKUP THIS PASSWORD.
@@ -102,7 +104,7 @@ Check if your private key is created:
 
     gpg --list-secret-keys
 
-##### Step 4: Create a backup of your PGP key pair
+#### Step 4: Create a backup of your PGP key pair
 
 Do not ignore this step.<br>
 You can not recover your keys if they are messed up.<br>
@@ -111,7 +113,7 @@ If this step does not work, try as long as you need until this step works.<br>
 Do not go any further without creating a backup.<br>
 I recommend during both style of the backup - just for security.
 
-<b><i>4.1: Hardcopy style</i></b><br>
+##### 4.1: Hardcopy style
 
 Create the backup like this:
 
@@ -123,30 +125,28 @@ Import the backup like this:
 
     cp /path/to/backups/*.gpg ~/.gnupg/
 
-<b><i>4.2: Export/Import style</i></b><br>
+##### 4.2: Export/Import style
 
-Backup the public keys like this:
+Create the backup:
 
+    // Public keys
     gpg --export --export-options backup --output publicKeysBackup.gpg
-
-Backup the private keys like this:
-
-    gpg --export-secret-keys --export-options backup --output privateKeysBackup.gpg
-
-Backup the trust relationship database like this:
-
+    
+    // Private keys
+    gpg --export-secret-keys --export-options backup --output privateKeysBackup.gpge this:
+    
+    // Trust relationship database
     gpg --export-ownertrust > trustBackup.gpg
 
-Import the public keys backup like this:
+Import the backup:
 
+    // Public keys
     gpg --import publicKeysBackup.gpg
 
-Import the private keys backup like this:
-
+    // Private keys
     gpg --import privateKeysBackup.gpg
 
-Import the trust relationship database backup like this:
-
+    // Trust relationship database
     gpg --import-ownertrust trustBackup.gpg
 
     If this does not work, try this:
@@ -159,7 +159,7 @@ Check for correct import:
 
     gpg --list-secret-keys --keyid-format LONG
 
-##### Step 5: Publish your public key on a public key server
+#### Step 5: Publish your public key on a public key server
 
 Publish your key:
 
@@ -171,7 +171,7 @@ Check if your key is published:
 
 Additional notes and informations: https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key
 
-##### Step 6: Prepare your global gradle.properties for publishing
+#### Step 6: Prepare your global gradle.properties for publishing
 
 The global gradle.properties are located in <code>userHome/.gradle/gradle.properties</code>. If this file does not
 exist, then create it.
@@ -183,9 +183,9 @@ Please look in the directory <code>exampleFiles</code>.
 
     Please read the comments in the example file of this repository.
 
-##### Step 7: Prepare your build.gradle for publishing
+#### Step 7: Prepare your build.gradle for publishing
 
-<b><i>7.1: Generate a security token</i></b><br>
+##### 7.1: Generate a security token
 
 You must generate a security token because the old way (using the standard username and password) does not work anymore.
 
@@ -197,19 +197,19 @@ You must generate a security token because the old way (using the standard usern
 
 ![img.png](img.png)
 
-<b><i>7.2: Example file</i></b><br>
+##### 7.2: Example file
 
 Please look in the directory <code>exampleFiles</code>.
 
     Please read the comments in the example file of this repository.
 
-##### Step 8: Publish to OSSRH nexus with gradle publish
+#### Step 8: Publish to OSSRH nexus with gradle publish
 
 Execute the gradlew task <code>publish</code> to publish to the OSSRH nexus.<br>
 Now you need to wait around 5-30 minutes and after that, your uploaded library will appear in the repositories tab
 at https://s01.oss.sonatype.org/.
 
-##### Step 9: Release your library
+#### Step 9: Release your library
 
 After publishing to the nexus, your library is in the state <code>open</code>.<br>
 You need to set the state to <code>close</code> with the <code>close button</code>.<br>
@@ -222,16 +222,16 @@ Please read this articles (annoying, but necessary): <br>
 https://central.sonatype.org/publish/release/#locate-and-examine-your-staging-repository <br>
 https://central.sonatype.org/publish/publish-guide/#releasing-to-central
 
-##### Step 10: Profit
+#### Step 10: Profit
 
 ### Error handling
 
-##### General todo
+#### General todo
 
 If any error occurs, than restart at first your IDE. After that, rerun the gradle task <code>gradle publish</code>
 with <code>--stacktrace</code>. It will show you hints why.
 
-##### Caused by gpg2.exe is not found
+#### Caused by gpg2.exe is not found
 
 Check your gpg version with <code>gpg --version</code>. If your version is <code>>2</code> and your environment
 variable <code>PATH</code> contains the path to GnuPG (e.g. <code>C:\Program Files (x86)\gnupg\bin</code>), then check
@@ -241,7 +241,7 @@ it to <code>gpg2.exe</code>.
 IMPORTANT: From now on, you need to use <code>gpg2</code> with parameter like <code>--version</code> in your
 terminal/command prompt because there is no longer a <code>gpg.exe</code>!!!
 
-##### 401 Content access is protected by token
+#### 401 Content access is protected by token
 
 This error message occurs if you try to publish to OSSRH via your username and password. This does not work anymore.
 You must create and use a user token.
@@ -254,7 +254,7 @@ You must create and use a user token.
 
 Original documentation: https://central.sonatype.org/publish/generate-token/
 
-##### The dependency is not available on maven central repository
+#### The dependency is not available on maven central repository
 
 Don't get fooled by the indexed search on https://mvnrepository.com/. This process can take around 2 days (personal
 experience). If you want to test it, create a separate project, include the dependency in it, and try to load it. Or
@@ -265,7 +265,7 @@ wait until you get grey hair.
 You need to revoke the key from the keyserver by publishing a revocation certificate to it. This informs others that the
 key shouldn't be trusted anymore.
 
-##### Step 1: Get the ID of your key first:
+#### Step 1: Get the ID of your key first:
 
 For a public key use <code>gpg --list-keys</code>, for a private key use <code>gpg --list-secret-keys</code>.
 In both ways the ID of the keys are the last 8 characters.
@@ -277,7 +277,7 @@ In both ways the ID of the keys are the last 8 characters.
     uid      [ ultimativ ] Firstname Lastname email@email.com
     sub   rsa2048 2023-03-27 [E]
 
-##### Step 2: Mark the key as unsecure:
+#### Step 2: Mark the key as unsecure:
 
 1. Generate a revocation certificate:<br><code>gpg --output revoke.asc --gen-revoke 12345678</code><br>You must enter
    the password of your key during this process.
