@@ -6,12 +6,21 @@ Official Github
 repository: <a href="https://github.com/davidweber411/how-to-publish-to-maven-central-with-gradle" target="_blank" rel="noreferrer noopener">
 davidweber411/how-to-publish-to-maven-central-with-gradle</a>
 
-### Versions used
+### Version stack used in this guide
 
 | Software | Version |
 |----------|---------|
 | Gradle   | 7.4.2   |
 | GnuPG    | 2.4.0   |
+
+### Other supported version stacks
+
+| Key              | Value                                              |
+|------------------|----------------------------------------------------|
+| Date of usage    | 2025.02.02                                         |
+| Gradle version   | 8.12.1                                             |
+| GnuPG version    | 2.4.7                                              |
+| Tested / used by | <a href="https://github.com/yingzhuo">yingzhuo</a> |
 
 ### Guide
 
